@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Daily Cash Flow Form</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      max-width: 800px;
+      margin: 2rem auto;
+      padding: 1rem;
+    }
+    label {
+      display: block;
+      margin-top: 1rem;
+    }
+    input[type="text"], input[type="number"], input[type="date"] {
+      width: 100%;
+      padding: 0.5rem;
+      margin-top: 0.25rem;
+    }
+    .expense-group {
+      margin-top: 1rem;
+      padding: 1rem;
+      border: 1px solid #ccc;
+    }
+    button {
+      margin-top: 2rem;
+      padding: 0.75rem 1.5rem;
+    }
+  </style>
+</head>
+<body>
+  <h2>Daily Cash Flow Form</h2>
+  <form id="cashFlowForm">
+    <label>Date:
+      <input type="date" name="date" required />
+    </label>
+
+    <label>Tuition OR:
+      <input type="text" name="tuition_or" />
+    </label>
+    <label>Tuition Amount:
+      <input type="number" name="tuition_amt" />
+    </label>
+
+    <label>Entrance OR:
+      <input type="text" name="entrance_or" />
+    </label>
+    <label>Entrance Amount:
+      <input type="number" name="entrance_amt" />
+    </label>
+
+    <label>Reservation OR:
+      <input type="text" name="reservation_or" />
+    </label>
+    <label>Reservation Amount:
+      <input type="number" name="reservation_amt" />
+    </label>
+
+    <label>Certificate OR:
+      <input type="text" name="certificate_or" />
+    </label>
+    <label>Certificate Amount:
+      <input type="number" name="certificate_amt" />
+    </label>
+
+    <label>Petty Cash:
+      <input type="text" name="petty_cash" />
+    </label>
+
+    <h3>Expenses</h3>
+    <div class="expense-group">
+      <label>Description:
+        <input type="text" name="expense_description[]" />
+      </label>
+      <label>Category:
+        <input type="text" name="expense_category[]" />
+      </label>
+      <label>Amount:
+        <input type="number" name="expense_amount[]" />
+      </label>
+    </div>
+
+    <div class="expense-group">
+      <label>Description:
+        <input type="text" name="expense_description[]" />
+      </label>
+      <label>Category:
+        <input type="text" name="expense_category[]" />
+      </label>
+      <label>Amount:
+        <input type="number" name="expense_amount[]" />
+      </label>
+    </div>
+
+    <button type="submit">Submit</button>
+  </form>
+
+  <script>
+    const scriptURL = 'https://script.google.com/macros/s/AKfycbwyfwCBpQtevR5pmDslL629cf5vPCgaO8_OQtnB_wmQW99Oleah70aoTr3cR_uD8_oG/exec';
+
+    document.getElementById('cashFlowForm').addEventListener('submit', (e) => {
+      e.preventDefault();
+      const form = new FormData(e.target);
+      fetch(scriptURL, {
+        method: 'POST',
+        body: new URLSearchParams(form)
+      })
+      .then(response => response.text())
+      .then(result => {
+        console.log('Success:', result);
+        alert('✅ Submitted successfully!');
+      })
+      .catch(error => {
+        console.error('Error!', error.message);
+        alert('❌ Submission failed.');
+      });
+    });
+  </script>
+</body>
+</html>
